@@ -9,6 +9,7 @@ const ASSCIIConversionCanvas = () => {
   const {currentImage, sparsity, setSparsity } = useImage();
   const imageRef = useRef(currentImage);
   const convertToASCII = ASCIIArt;
+  const [isProcessing, setIsProcessing] = useState(true);
 
   const paintCanvas = () => {
     canvasRef.current.width = imageRef.current.width;
@@ -16,7 +17,7 @@ const ASSCIIConversionCanvas = () => {
     canvasRef.current.style.width = `${imageRef.current.width}px`;
     canvasRef.current.style.height = `${imageRef.current.height}px`;
     ctxRef.current = canvasRef.current.getContext('2d');
-    convertToASCII(canvasRef.current, ctxRef.current, imageRef.current, sparsity, '');
+    convertToASCII(canvasRef.current, ctxRef.current, imageRef.current, sparsity, setIsProcessing);
   }
 
   useEffect( () => {
@@ -28,14 +29,13 @@ const ASSCIIConversionCanvas = () => {
     };
   }, []);
 
-
   // Runs every time image changes
   useEffect(() => {
     if (!(imageRef.current.complete && canvasRef.current)){
       // console.log('useEffect for sparsity change not ran');
       return
     }
-    convertToASCII(canvasRef.current, ctxRef.current, imageRef.current, sparsity, '');
+    convertToASCII(canvasRef.current, ctxRef.current, imageRef.current, sparsity, setIsProcessing);
     // const scannedImage = ctxRef.current.getImageData(0,0, canvasRef.current.width, canvasRef.current.height);
     return () => {
     };
@@ -47,16 +47,17 @@ const ASSCIIConversionCanvas = () => {
     // console.log('useEffect for currentImage change ran');
   }, [currentImage]);
 
-
-
   return (
-    <Card sx={{ padding: 5, border: '2px dashed #fff', maxWidth: '90vw' }}>
-      <canvas ref={canvasRef} />
+    <Card sx={{ padding: 5}}>
+      <div>
+        {isProcessing && <p><br/>Processing... <br/></p>}
+        {<canvas ref={canvasRef} style={{display: `${isProcessing ? 'none' : 'block'}`}} /> }
+      </div>
       <div>
         <Typography variant='h5' textAlign='center' margin={2}>
-          Set Sparsity
+          Set Character Sparsity
         </Typography>
-        <Slider value={sparsity} valueLabelDisplay="auto" onChange={ e => setSparsity(e.target.value)}/>
+        <Slider value={sparsity} min={0} max={20} valueLabelDisplay="auto" onChange={ e => setSparsity(e.target.value)}/>
       </div>
     </Card>
   );

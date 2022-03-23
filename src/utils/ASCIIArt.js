@@ -1,54 +1,82 @@
-const ASCIIArt = (canvas, ctx, image, sparsity, effectType = 'grayscale') => {
-    // Store width and height values for readability (frequently used)
-    let width = image.width,
-        height = image.width;
+class Cell {
+  constructor(x, y, symbol, color) {
+    this.x = x;
+    this.y = y;
+    this.symbol = symbol;
+    this.color = color;
+  }
+  draw(ctx){
+    ctx.fillStyle = this.color;
+    ctx.fillText(this.symbol, this.x, this.y);
+  }
+}
 
-    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-    // Get pixel data of image
-    console.log(`Rendering with sparsity set to: ${sparsity}`);
-    const pixels = ctx.getImageData(0,0, 728, 410);
-
-    // Create mapped image
-    let mappedImage = [];
-    // for(let y = 0; y < canvas.height; y++){
-    //   let row = [];
-    //   for(let x = 0; x < canvas.width; x++){
-    //     // Grab RGB values by calculating exact position
-    //     const red = pixels.data[(y * 4 * pixels.width) + (x * 4)];
-    //     const green = pixels.data[y * 4 * pixels.width + (x * 4 + 1)]
-    //     const blue = pixels.data[y * 4 * pixels.width + (x * 4 + 2)]
-    //     const brightness = calculateRelativeBrightness(red, green, blue);
-    //     // Push a single-cell array containing the relative brightness to each row
-    //     row.push([brightness]);
-    //   }
-    //   // Push each row to make up the mapped image
-    //   mappedImage.push(row);
-    // }
-    //
-    // console.log(mappedImage);
-    //
-    // //-- Initialize particles
-    // let particlesArray = [];
-    // for(let i = 0; i < numberOfParticles; i ++){
-    //   particlesArray.push(new Particle(canvas, ctx))
-    // }
-    //
-    // //-- Animation loop
-    // const animate = () => {
-    //   // ctx.drawImage(image, 0, 0, image.width, image.height);
-    //   ctx.globalAlpha = 0.05;
-    //   ctx.fillStyle = 'rgb(0,0,0)';
-    //   ctx.fillRect(0,0, canvas.width, canvas.height);
-    //   ctx.globalAlpha = 0.05;
-    //   requestAnimationFrame(animate);
-    //   particlesArray.forEach((particle, i) => {
-    //     particle.update(mappedImage);
-    //     particle.draw();
-    //   })
-    // }
-    // // Run animation
-    // animate();
-
+const ASCIIArt = (canvas, ctx, image, sparsity, setProcessingState) => {
+  // Notify that we're beginning the image analysis
+  setProcessingState(true);
+  // console.log(`Rendering with sparsity set to: ${sparsity}`);
+  // Store width and height values for readability (frequently used)
+  const width = canvas.width,
+        height = canvas.width,
+        imageCellArray = [];
+  ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+  const pixels = ctx.getImageData(0,0, width, height);
+  // Convert avg colour value to (arbitrarily decided) symbol
+  const convertToSymbol = (avgColor) => {
+    if (avgColor > 250) return '@';
+    else if (avgColor > 240) return '+';
+    else if (avgColor > 220) return '#';
+    else if (avgColor > 200) return '&';
+    else if (avgColor > 180) return '%';
+    else if (avgColor > 160) return '_';
+    else if (avgColor > 120) return ':';
+    else if (avgColor > 100) return '$';
+    else if (avgColor > 80) return '/';
+    else if (avgColor > 60) return '-';
+    else if (avgColor > 40) return '·';
+    else if (avgColor > 15) return '';
+    else if (avgColor > 10) return '▒';
+    else if (avgColor > 5) return '■';
+    else return ''
+  }
+  if(sparsity > 0) {
+    // Set font size based on sparsity setting
+    ctx.font = `${sparsity * 1.2}px Roboto`;
+    // Split image into (squared) cells based on sparsity value. Iterate over the image in (sparsity x sparsity) sized chunks
+    for (let y = 0; y < pixels.height; y += sparsity) {
+      for (let x = 0; x < pixels.width; x += sparsity) {
+        // Get current X and Y positions (offset by cell array size == sparsity value)
+        const posX = x * 4;
+        const posY = y * 4;
+        // Get current linear position in pixel array; calculated by (Y position x width + X position offset)
+        const pos = posY * pixels.width + posX;
+        // Consider a non-transparent value to be alpha = 128. This is the current
+        if (pixels.data[pos + 3] > 128) {
+          // Get R,G,B values and calculate total colour. Then get the symbol based on avg. colour
+          const red = pixels.data[pos],
+            green = pixels.data[pos + 1],
+            blue = pixels.data[pos + 2],
+            avgColor = (red + green + blue) / 3,
+            symbol = convertToSymbol(avgColor);
+          if (red + green + blue > 100) {
+            // Push calculated values to image cell array
+            imageCellArray.push({x, y, symbol, color: `rgb(${red},${green},${blue})`});
+          }
+        }
+      }
+    }
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Iterate through newly created image cells and paint their coloured symbols onto the canvas
+    imageCellArray.forEach(cellData => {
+      ctx.fillStyle = 'white';
+      ctx.fillText(cellData.symbol, cellData.x + 0.5, cellData.y + 0.5);
+      ctx.fillStyle = cellData.color;
+      ctx.fillText(cellData.symbol, cellData.x, cellData.y);
+    });
+  }
+  // Notify that we're done processing the image
+  setProcessingState(false);
 }
 
 export default ASCIIArt;
