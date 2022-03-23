@@ -1,21 +1,28 @@
-import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
+import { AppBar, Toolbar, IconButton, Typography, Grid, Paper } from "@mui/material";
 import logo from '../assets/logo.gif';
 function Navbar(props) {
 
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{ mr: 2 }}
+        <Grid
+          container
+          spacing={0}
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          style={{ minHeight: '6vh' }}
         >
-          <MenuIcon />
-        </IconButton>
-        <img src={logo} alt="Loading..." id='main-logo' style={{maxWidth: '10%'}}/>
+          <Grid item xs={9}>
+            <img src={logo} alt="Loading..." id='main-logo' style={{maxHeight: '10vh'}}/>
+          </Grid>
+          <Grid item xs={2}>
+            <Typography variant='h5' fontFamily='Orbitron' marginBottom={1}>
+              ASCIIfy
+            </Typography>
+          </Grid>
+
+        </Grid>
       </Toolbar>
     </AppBar>
   );

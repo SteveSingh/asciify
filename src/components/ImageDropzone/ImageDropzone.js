@@ -2,9 +2,10 @@ import { useDropzone } from "react-dropzone";
 import {Box, Card, Grid, Typography } from "@mui/material";
 import {useCallback, useState, useMemo} from "react";
 import ASSCIIConversionCanvas from "../ASSCIIConversionCanvas/ASSCIIConversionCanvas";
+import {useImage} from "../../contexts/ImageContext";
+
 
 const ImageDropzone = () => {
-
   const baseStyle = {
     flex: 1,
     display: 'flex',
@@ -15,7 +16,7 @@ const ImageDropzone = () => {
     borderRadius: 2,
     borderColor: '#eeeeee',
     borderStyle: 'dashed',
-    backgroundColor: '#A37ABB',
+    backgroundColor: 'inherit',
     color: '#eee',
     outline: 'none',
     transition: 'border .24s ease-in-out'
@@ -39,8 +40,7 @@ const ImageDropzone = () => {
     reader.onload = () => {
       // Make a fileInfo Object
       base64URL = reader.result;
-      console.log('base64URL', base64URL);
-      setCurrentImage(base64URL);
+      loadImage(base64URL);
     };
     // Convert the file to base64 text
     reader.readAsDataURL(file);
@@ -60,46 +60,49 @@ const ImageDropzone = () => {
     ...(isFocused ? focusedStyle : {}),
     ...(isDragAccept ? acceptStyle : {}),
     ...(isDragReject ? rejectStyle : {})
-  }), [
-    isFocused,
-    isDragAccept,
-    isDragReject
-  ]);
+  }), [isFocused,isDragAccept,isDragReject]);
 
+  const loadImage = (base64Data) => {
+    const img = new Image();
+    // Set image source to base64 data
+    img.src = base64Data;
+    // Wait for image to load (without setting onload explicitly)
+    img.decode();
+    // Update currentImage state with image
+    setCurrentImage(img);
+  }
 
-  const [currentImage, setCurrentImage] = useState(null);
-
-  const files = acceptedFiles.map(file => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes
-    </li>
-  ));
+  // const files = acceptedFiles.map(file => (
+  //   <li key={file.path}>
+  //     {file.path} - {file.size} bytes
+  //   </li>
+  // ));
+  const { currentImage, setCurrentImage } = useImage();
 
   return (
-    <Card>
     <Box sx={{
-      backgroundColor: 'secondary.main'
+      backgroundColor: '#676B71'
     }}>
       <Grid container
             spacing={0}
             direction="column"
             alignItems="center"
             justifyContent="center"
-            style={{ minHeight: '100vh' }} >
+            style={{ minHeight: '100vh', padding: 20 }} >
         <Grid item xs={12} margin={2}>
           <section className='dropzone' style={{cursor: 'pointer'}} >
             <div {...getRootProps({className: 'dropzone', style: style})}>
-              <input {...getInputProps()} sx={{ border: '1px dashed primary.dark' }} />
+              <input {...getInputProps()} />
               <Typography>Drag 'n' drop image here, or click to select a file</Typography>
             </div>
           </section>
         </Grid>
         <Grid item xs={12} >
-          { currentImage && <ASSCIIConversionCanvas image={currentImage} /> }
+          { currentImage && <ASSCIIConversionCanvas/> }
         </Grid>
       </Grid>
     </Box>
-    </Card>
+
   );
 };
 
