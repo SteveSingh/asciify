@@ -4,8 +4,10 @@ const ImageContext = createContext();
 
 const ImageProvider = (props) => {
   const [currentImage, setCurrentImage] = useState(null);
-  const [sparsity, setSparsity] = useState(2);
-  return <ImageContext.Provider value={{currentImage, setCurrentImage, sparsity, setSparsity}} {...props} />;
+  const [sparsity, setSparsity] = useState(0);
+  return <ImageContext.Provider
+          value={ { currentImage, setCurrentImage, sparsity, setSparsity }}
+          {...props} />;
 };
 
 const useImage = () => {    

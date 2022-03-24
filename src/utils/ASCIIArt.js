@@ -1,25 +1,10 @@
-class Cell {
-  constructor(x, y, symbol, color) {
-    this.x = x;
-    this.y = y;
-    this.symbol = symbol;
-    this.color = color;
-  }
-  draw(ctx){
-    ctx.fillStyle = this.color;
-    ctx.fillText(this.symbol, this.x, this.y);
-  }
-}
-
 const ASCIIArt = (canvas, ctx, image, sparsity, setProcessingState) => {
-  // Notify that we're beginning the image analysis
-  setProcessingState(true);
   // console.log(`Rendering with sparsity set to: ${sparsity}`);
   // Store width and height values for readability (frequently used)
   const width = canvas.width,
-        height = canvas.width,
+        height = canvas.height,
         imageCellArray = [];
-  ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+  ctx.drawImage(image, 0, 0, width, height);
   const pixels = ctx.getImageData(0,0, width, height);
   // Convert avg colour value to (arbitrarily decided) symbol
   const convertToSymbol = (avgColor) => {
@@ -34,11 +19,12 @@ const ASCIIArt = (canvas, ctx, image, sparsity, setProcessingState) => {
     else if (avgColor > 80) return '/';
     else if (avgColor > 60) return '-';
     else if (avgColor > 40) return '·';
-    else if (avgColor > 15) return '';
+    else if (avgColor > 15) return '0';
     else if (avgColor > 10) return '▒';
     else if (avgColor > 5) return '■';
     else return ''
   }
+
   if(sparsity > 0) {
     // Set font size based on sparsity setting
     ctx.font = `${sparsity * 1.2}px Roboto`;
@@ -66,7 +52,7 @@ const ASCIIArt = (canvas, ctx, image, sparsity, setProcessingState) => {
       }
     }
     // Clear canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, width, height);
     // Iterate through newly created image cells and paint their coloured symbols onto the canvas
     imageCellArray.forEach(cellData => {
       ctx.fillStyle = 'white';
@@ -75,8 +61,6 @@ const ASCIIArt = (canvas, ctx, image, sparsity, setProcessingState) => {
       ctx.fillText(cellData.symbol, cellData.x, cellData.y);
     });
   }
-  // Notify that we're done processing the image
-  setProcessingState(false);
 }
 
 export default ASCIIArt;

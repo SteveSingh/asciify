@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import CssBaseline from '@mui/material/CssBaseline';
 import App from './App';
+import { ImageProvider, useImage } from "./contexts/ImageContext";
 // import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />
-    <App />
+    <ImageProvider>
+      <App />
+    </ImageProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

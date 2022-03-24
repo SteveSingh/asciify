@@ -1,25 +1,34 @@
 import "./App.css";
-import TourCard from "./components/TourCard";
 import { Container, Grid } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 import Navbar from "./components/Navbar";
 import ImageDropzone from "./components/ImageDropzone/ImageDropzone";
-import { ImageProvider } from "./contexts/ImageContext";
+import { useImage } from "./contexts/ImageContext";
+import ASSCIIConversionCanvas from "./components/ASSCIIConversionCanvas/ASSCIIConversionCanvas";
+import ParticleBackground from "./components/ParticleBackground/ParticleBackground";
 
-function App() {
+const App = () => {
+	const { currentImage } = useImage();
   return (
     <ThemeProvider theme={theme}>
+			<ParticleBackground />
       <Navbar />
-      <Container maxWidth="lg">
-				<ImageProvider>
-					<Grid container spacing={2} marginTop={1} height="100vh">
-						<Grid item xs={12}>
-							<ImageDropzone />
-						</Grid>
+			<Container maxWidth="lg" sx={{position: 'relative', minHeight: "200vh", zIndex: 1}}>
+				<Grid
+					container
+					spacing={1}
+					alignItems="center"
+					justifyContent="center"
+					style={{ padding: 20 }}>
+					<Grid item xs={10} >
+						<ImageDropzone />
 					</Grid>
-				</ImageProvider>
-      </Container>
+					<Grid item xs={12} >
+						{ currentImage && <ASSCIIConversionCanvas/> }
+					</Grid>
+				</Grid>
+			</Container>
     </ThemeProvider>
   );
 }
