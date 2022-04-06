@@ -1,4 +1,4 @@
-const ASCIIArt = (canvas, ctx, image, sparsity, setProcessingState) => {
+const ASCIIArt = async (canvas, ctx, image, sparsity) => {
   // console.log(`Rendering with sparsity set to: ${sparsity}`);
   // Store width and height values for readability (frequently used)
   const width = canvas.width,
@@ -26,6 +26,7 @@ const ASCIIArt = (canvas, ctx, image, sparsity, setProcessingState) => {
   }
 
   if(sparsity > 0) {
+    console.log('ASCII Conversion processing...');
     // Set font size based on sparsity setting
     ctx.font = `${sparsity * 1.2}px Roboto`;
     // Split image into (squared) cells based on sparsity value. Iterate over the image in (sparsity x sparsity) sized chunks

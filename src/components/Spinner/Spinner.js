@@ -1,12 +1,11 @@
 import {useImage} from "../../contexts/ImageContext";
 import {CircularProgress} from "@mui/material";
 
-function Spinner(props) {
+const Spinner = ({loadingText}) => {
   const {isProcessing} = useImage();
-  console.log("SPINNER LOADED. PROCESSING: ", isProcessing)
   return (
     <>
-      {isProcessing && <CircularProgress />}
+      {isProcessing && <CircularProgress color='secondary' />} { loadingText }
     </>
   );
 }

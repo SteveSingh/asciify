@@ -1,7 +1,7 @@
 const particleConfig = {
   particles: {
     number: {
-      value: 160,
+      value: 80,
       density: {
         enable: true,
         value_area: 800
@@ -73,10 +73,6 @@ const particleConfig = {
       onhover: {
         enable: true,
         mode: "bubble"
-      },
-      onclick: {
-        enable: true,
-        mode: "repulse"
       },
       resize: true
     },
