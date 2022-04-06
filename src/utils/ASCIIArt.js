@@ -19,7 +19,7 @@ const ASCIIArt = async (canvas, ctx, image, sparsity) => {
     else if (avgColor > 80) return '/';
     else if (avgColor > 60) return '-';
     else if (avgColor > 40) return '·';
-    else if (avgColor > 15) return '0';
+    else if (avgColor > 15) return '|';
     else if (avgColor > 10) return '▒';
     else if (avgColor > 5) return '■';
     else return ''

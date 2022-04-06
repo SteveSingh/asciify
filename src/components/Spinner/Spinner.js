@@ -5,7 +5,9 @@ const Spinner = ({loadingText}) => {
   const {isProcessing} = useImage();
   return (
     <>
-      {isProcessing && <CircularProgress color='secondary' />} { loadingText }
+      {isProcessing && <CircularProgress disableShrink color='secondary' />}
+      <br/>
+      { loadingText }
     </>
   );
 }
