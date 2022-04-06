@@ -26,7 +26,6 @@ const ASCIIArt = async (canvas, ctx, image, sparsity) => {
   }
 
   if(sparsity > 0) {
-    console.log('ASCII Conversion processing...');
     // Set font size based on sparsity setting
     ctx.font = `${sparsity * 1.2}px Roboto`;
     // Split image into (squared) cells based on sparsity value. Iterate over the image in (sparsity x sparsity) sized chunks

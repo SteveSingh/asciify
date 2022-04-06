@@ -21,7 +21,8 @@ const SparsitySlider = () => {
 
   return (
       <Card sx={{
-        padding: 5
+        padding: 5,
+        paddingTop: 2
         // backgroundColor: 'secondary.dark',
         // color: 'secondary.contrastText'
       }}>

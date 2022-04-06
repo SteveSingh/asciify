@@ -31,7 +31,7 @@ const App = () => {
 					</Grid>
 					<Grid item xs={12} >
 						{currentImage &&
-							<Card sx={{ padding: 5 }}>
+							<Card sx={{ padding: 3 }}>
 								<div>
 									<ASSCIIConversionCanvas/>
 									<center>
