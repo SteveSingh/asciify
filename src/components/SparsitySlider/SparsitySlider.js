@@ -40,8 +40,9 @@ const SparsitySlider = () => {
           // valueLabelFormat= {labelFormat}
           onChange={ e => {
             e.preventDefault();
-            if(e.target.value != 0) setIsProcessing(true);
-            setSparsity(e.target.value);
+            const newVal = parseInt(e.target.value);
+            if(newVal !== 0 && newVal !== sparsity) setIsProcessing(true);
+            if(newVal !== sparsity) setSparsity(newVal);
           }}/>
       </Card>
   );

@@ -44,7 +44,7 @@ const ASCIIArt = async (canvas, ctx, image, sparsity) => {
             blue = pixels.data[pos + 2],
             avgColor = (red + green + blue) / 3,
             symbol = convertToSymbol(avgColor);
-          if (red + green + blue > 100) {
+          if (red + green + blue > 50) {
             // Push calculated values to image cell array
             imageCellArray.push({x, y, symbol, color: `rgb(${red},${green},${blue})`});
           }
@@ -52,11 +52,12 @@ const ASCIIArt = async (canvas, ctx, image, sparsity) => {
       }
     }
     // Clear canvas
-    ctx.clearRect(0, 0, width, height);
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, width, height);
     // Iterate through newly created image cells and paint their coloured symbols onto the canvas
     imageCellArray.forEach(cellData => {
-      ctx.fillStyle = 'white';
-      ctx.fillText(cellData.symbol, cellData.x + 0.5, cellData.y + 0.5);
+      // ctx.fillStyle = 'white';
+      // ctx.fillText(cellData.symbol, cellData.x + 0.5, cellData.y + 0.5);
       ctx.fillStyle = cellData.color;
       ctx.fillText(cellData.symbol, cellData.x, cellData.y);
     });

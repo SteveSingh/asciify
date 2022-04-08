@@ -33,10 +33,10 @@ const App = () => {
 						{currentImage &&
 							<Card sx={{ padding: 3 }}>
 								<div>
-									<ASSCIIConversionCanvas/>
 									<center>
 										{isProcessing && <Spinner loadingText='Processing...' />}
 									</center>
+									<ASSCIIConversionCanvas/>
 								</div>
 							</Card>}
 					</Grid>

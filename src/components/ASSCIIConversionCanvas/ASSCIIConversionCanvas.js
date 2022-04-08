@@ -1,7 +1,7 @@
-import {useRef, useState, useEffect } from "react";
-import { Grid, Card, Slider, Typography } from "@mui/material";
+import {useRef, useEffect } from "react";
 import ASCIIArt from "../../utils/ASCIIArt";
 import {useImage} from "../../contexts/ImageContext";
+import ActionButtons from "../ActionButtons/ActionButtons";
 
 const ASSCIIConversionCanvas = () => {
   const canvasRef = useRef(null),
@@ -55,6 +55,7 @@ const ASSCIIConversionCanvas = () => {
   return (
     <center>
       { <canvas ref={canvasRef} /> }
+      { imageRef.current.complete && <ActionButtons canvas={canvasRef} /> }
     </center>
   );
 };
