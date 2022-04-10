@@ -16,10 +16,10 @@ const App = () => {
     <ThemeProvider theme={theme}>
 			<ParticleBackground />
       <Navbar />
-			<Container maxWidth="lg" sx={{position: 'relative', minHeight: "200vh", zIndex: 1}}>
+			<Container maxWidth="lg" sx={{position: 'relative', minHeight: "100vh", zIndex: 1}}>
 				<Grid
 					container
-					spacing={1}
+					spacing={2}
 					alignItems="center"
 					justifyContent="center"
 					style={{ padding: 20 }}>

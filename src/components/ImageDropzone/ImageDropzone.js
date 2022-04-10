@@ -1,7 +1,7 @@
 import { useDropzone } from "react-dropzone";
 import { Typography } from "@mui/material";
-import {useCallback, useState, useMemo} from "react";
-import {useImage} from "../../contexts/ImageContext";
+import { useCallback, useMemo } from "react";
+import { useImage } from "../../contexts/ImageContext";
 
 const ImageDropzone = () => {
   const baseStyle = {

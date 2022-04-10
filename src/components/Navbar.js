@@ -3,7 +3,9 @@ import logo from '../assets/logo.gif';
 function Navbar(props) {
 
   return (
-    <AppBar position="static">
+    <AppBar position="static"
+            // sx={{position: 'relative', zIndex: 2}}
+    >
       <Toolbar>
         <Grid
           container
