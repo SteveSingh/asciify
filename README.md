@@ -1,70 +1,22 @@
-# Getting Started with Create React App
+# ASCIIfy!
+A React app integrating of one of my favourite pixel manipulation effects: transforming images into ASCII art 😄
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Usage
+Install the project dependencies with `yarn install` or `npm install` and then `yarn start` or `npm start` to get 
+started. Once in the app, you can choose to either drag 'n' drop or manually select your image file. Use the slider to 
+adjust the ASCII character sparsity and watch the magic happen! You can then freely switch images, download the 
+currently modified image as a PNG file, or copy the base64 data URL of the image to your clipboard.
 
-## Available Scripts
+**Note: The lower the sparsity, the more CPU-intensive the image transformation will be. This is mainly an issue for
+the 2px or 4px settings. You can simply click a higher sparsity setting on the slider (without sliding) to avoid this**
 
-In the project directory, you can run:
+## Credits
+I've been the single contributor on this project from start to finish (so far!) and it has not been forked from any 
+existing repos. HOWEVER:
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- I'd like to give a big thank you to Frank over at [Frank's laboratory](https://www.youtube.com/c/Frankslaboratory) 
+on YouTube for the inspiration. His channel explores many pixel manipulation effects and has cool tutorials; check it out!
+- [Canva's Free Logo Maker](https://www.canva.com/create/logos/) was used to create the animated logo. Beautiful tool 
+with many great options
+- Last but certainly not least, thank you to all the awesome open-source contributors out there who are responsible in 
+any way for the dependencies which made this app possible ❤️
