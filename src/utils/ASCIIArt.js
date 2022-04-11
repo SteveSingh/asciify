@@ -19,10 +19,10 @@ const ASCIIArt = async (canvas, ctx, image, sparsity) => {
     else if (avgColor > 80) return '/';
     else if (avgColor > 60) return '-';
     else if (avgColor > 40) return '·';
-    else if (avgColor > 15) return '|';
-    else if (avgColor > 10) return '▒';
-    else if (avgColor > 5) return '■';
-    else return ''
+    else if (avgColor > 15) return 'ı';
+    else if (avgColor > 10) return '°';
+    else if (avgColor > 5) return '.';
+    else return '·'
   }
 
   if(sparsity > 0) {
@@ -44,10 +44,10 @@ const ASCIIArt = async (canvas, ctx, image, sparsity) => {
             blue = pixels.data[pos + 2],
             avgColor = (red + green + blue) / 3,
             symbol = convertToSymbol(avgColor);
-          if (red + green + blue > 50) {
+          // if (red + green + blue > 50) {
             // Push calculated values to image cell array
             imageCellArray.push({x, y, symbol, color: `rgb(${red},${green},${blue})`});
-          }
+          // }
         }
       }
     }
