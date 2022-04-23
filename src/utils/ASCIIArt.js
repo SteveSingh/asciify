@@ -1,9 +1,14 @@
-const ASCIIArt = async (canvas, ctx, image, sparsity) => {
+const ASCIIArt = (canvas, ctx, image, sparsity) => {
   // console.log(`Rendering with sparsity set to: ${sparsity}`);
   // Store width and height values for readability (frequently used)
   const width = canvas.width,
         height = canvas.height,
-        imageCellArray = [];
+        imageCellArray = [],
+        reds = [],
+        greens = [],
+        blues = [];
+  let avgRed, avgGreen, avgBlue;
+
   ctx.drawImage(image, 0, 0, width, height);
   const pixels = ctx.getImageData(0,0, width, height);
   // Convert avg colour value to (arbitrarily decided) symbol
@@ -25,9 +30,13 @@ const ASCIIArt = async (canvas, ctx, image, sparsity) => {
     else return '·'
   }
 
+  const calculateAvgColor = colorArray => (
+    parseInt((colorArray.reduce((accumulator, a) => accumulator + a, 0)) / colorArray.length)
+  )
+
   if(sparsity > 0) {
     // Set font size based on sparsity setting
-    ctx.font = `${sparsity * 1.2}px Roboto`;
+    ctx.font = `${sparsity * 1.5}px Roboto`;
     // Split image into (squared) cells based on sparsity value. Iterate over the image in (sparsity x sparsity) sized chunks
     for (let y = 0; y < pixels.height; y += sparsity) {
       for (let x = 0; x < pixels.width; x += sparsity) {
@@ -47,17 +56,28 @@ const ASCIIArt = async (canvas, ctx, image, sparsity) => {
           // if (red + green + blue > 50) {
             // Push calculated values to image cell array
             imageCellArray.push({x, y, symbol, color: `rgb(${red},${green},${blue})`});
+            reds.push(red);
+            greens.push(green);
+            blues.push(blue);
           // }
         }
       }
     }
+    // Calculate average colour of image and set as background fill
+    avgRed = calculateAvgColor(reds);
+    avgGreen = calculateAvgColor(greens);
+    avgBlue = calculateAvgColor(blues);
+    console.log(`Average red: ${avgRed}\nAverage green: ${avgGreen}\nAverage blue: ${avgBlue}`);
+    console.log(`rgba(${avgRed},${parseInt(avgGreen/2.0)},${avgBlue},0.5)`);
     // Clear canvas
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = `rgba(${avgRed},${avgGreen},${avgBlue},0.6)`;
+    ctx.fillRect(0, 0, width, height);
     // Iterate through newly created image cells and paint their coloured symbols onto the canvas
     imageCellArray.forEach(cellData => {
-      // ctx.fillStyle = 'white';
-      // ctx.fillText(cellData.symbol, cellData.x + 0.5, cellData.y + 0.5);
+      ctx.fillStyle = '#FFF';
+      ctx.fillText(cellData.symbol, cellData.x + 0.5, cellData.y + 0.5);
       ctx.fillStyle = cellData.color;
       ctx.fillText(cellData.symbol, cellData.x, cellData.y);
     });

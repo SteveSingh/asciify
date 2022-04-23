@@ -6,8 +6,13 @@ const ImageProvider = (props) => {
   const [currentImage, setCurrentImage] = useState(null);
   const [sparsity, setSparsity] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [backgroundFillStyle, setBackgroundFillStyle] = useState('#FFFFFF');
   return <ImageContext.Provider
-          value={ { currentImage, setCurrentImage, sparsity, setSparsity, isProcessing, setIsProcessing }}
+          value={ { currentImage, setCurrentImage,
+                    sparsity, setSparsity,
+                    isProcessing, setIsProcessing,
+                    backgroundFillStyle, setBackgroundFillStyle
+          }}
           {...props} />;
 };
 

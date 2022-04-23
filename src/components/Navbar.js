@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, IconButton, Typography, Grid, Paper } from "@mui/material";
+import { AppBar, Toolbar, Typography, Grid } from "@mui/material";
 import logo from '../assets/logo.gif';
 function Navbar(props) {
 

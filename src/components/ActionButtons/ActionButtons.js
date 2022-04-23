@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { Fab, Card, Grid, Tooltip, Snackbar } from "@mui/material";
 import MuiAlert from '@mui/material/Alert';
-import ImageIcon from '@mui/icons-material/Image';
+import GetAppIcon from '@mui/icons-material/GetApp';
 import ImageAspectRatioIcon from '@mui/icons-material/ImageAspectRatio';
-import { useState } from "react";
+import BackgroundSelect from "../BackgroundSelect/BackgroundSelect";
 
 const ActionButtons = ({canvas}) => {
   const [copyTooltipText, setCopyTooltipText] = useState('Copy Base64 Image Data');
@@ -22,7 +23,7 @@ const ActionButtons = ({canvas}) => {
       const tempLink = document.createElement('a');
       document.body.appendChild(tempLink);
       tempLink.href = imageData;
-      tempLink.download = `ASCIIfy.png`;
+      tempLink.download = `ASCIIfy-img.png`;
       tempLink.click();
       document.body.removeChild(tempLink);
       setSnackbarVisibility(true);
@@ -43,7 +44,7 @@ const ActionButtons = ({canvas}) => {
         </MuiAlert>
       </Snackbar>
       <Grid container gap={2} justifyContent="center">
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Tooltip title="Download Image" placement="left">
             <Fab
               color="primary"
@@ -52,11 +53,14 @@ const ActionButtons = ({canvas}) => {
               data-img-type="jpeg"
               onClick={handleClick}
             >
-              <ImageIcon />
+              <GetAppIcon />
             </Fab>
           </Tooltip>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
+          <BackgroundSelect />
+        </Grid>
+        <Grid item xs={3}>
           <Tooltip title={copyTooltipText} placement="right">
             <Fab
               color="secondary"
