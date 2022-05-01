@@ -1,5 +1,6 @@
 # ASCIIfy!
 A React app integrating of one of my favourite pixel manipulation effects: transforming images into ASCII art 😄
+[Try it yourself!](https://stevesingh.github.io/asciify/)
 
 ## Usage
 1. Install the project dependencies with `yarn install` or `npm install`
