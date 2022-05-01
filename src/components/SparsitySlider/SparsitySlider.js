@@ -17,7 +17,7 @@ const SparsitySlider = () => {
     { value: 20, label: '20px'},
   ];
   // Custom formatting for value label
-  const labelFormat = value => (value === 0 ? value : `${value} px`);
+  // const labelFormat = value => (value === 0 ? value : `${value} px`);
 
   return (
       <Card sx={{
